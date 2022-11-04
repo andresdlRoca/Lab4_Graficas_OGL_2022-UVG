@@ -45,6 +45,7 @@ void main()
 {
     float intensity = dot(norms, normalize(pointLight -pos));
     fragColor = texture(tex, UVs) * intensity;
+
 }
 '''
 
@@ -79,5 +80,94 @@ void main()
     }
 
     fragColor = texture(tex, UVs) * intensity;
+}
+'''
+
+glow_shader = '''
+#version 450 core
+
+out vec4 fragColor;
+
+in vec2 UVs;
+in vec3 norms;
+in vec3 pos;
+
+uniform vec3 pointLight;
+
+uniform sampler2D tex;
+
+void main()
+{
+    float intensity = dot(norms, normalize(pointLight -pos));
+    float glowAmount = 1 - intensity;
+
+    if (glowAmount <= 0) {
+        glowAmount = 0;
+    }
+    //yellow = 1,1,0 RGB
+
+    vec4 textr = texture(tex, UVs);
+    float glowValue = 1 * glowAmount;
+
+    if (glowValue > 1) {
+        glowValue = 1;
+    }
+    fragColor = textr + vec4(glowValue,glowValue,0,1) * intensity;
+
+}
+'''
+
+pinkJelly_shader = '''
+#version 450 core
+
+out vec4 fragColor;
+
+in vec2 UVs;
+in vec3 norms;
+in vec3 pos;
+
+uniform vec3 pointLight;
+
+uniform sampler2D tex;
+
+void main()
+{
+    float intensity = dot(norms, normalize(pointLight -pos));
+
+    vec4 textr = texture(tex, UVs);
+
+    fragColor = textr + vec4(1,0,1,1) * intensity;
+
+}
+'''
+
+randomStatic_shader = '''
+#version 450 core
+
+out vec4 fragColor;
+
+in vec2 UVs;
+in vec3 norms;
+in vec3 pos;
+
+uniform vec3 pointLight;
+
+uniform sampler2D tex;
+
+void main()
+{
+    float rand(vec2 co){
+        return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+    }
+    float intensity = dot(norms, normalize(pointLight -pos));
+    float r = rand();
+    float g = rand();
+    float b = rand();
+    float a = 1.0;
+
+    vec4 textr = texture(tex, UVs);
+
+    fragColor = textr + vec4(r,g,b,a) * intensity;
+
 }
 '''

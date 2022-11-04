@@ -57,15 +57,16 @@ while isRunning:
             
             elif event.key == pygame.K_2: #Toon Shader
                 rend.setShaders(vertex_shader, toon_shader)
-                pass
             
-            elif event.key == pygame.K_3: #Custom Shader 1
-                #rend.setShaders()
-                pass
+            elif event.key == pygame.K_3: #Glow Shader
+                rend.setShaders(vertex_shader, glow_shader)
             
-            elif event.key == pygame.K_4: #Custom Shader 2
-                #rend.setShaders()
-                pass
+            elif event.key == pygame.K_4: #Pink Jelly
+                rend.setShaders(vertex_shader, pinkJelly_shader)
+            
+            elif event.key == pygame.K_5: #Static
+                rend.setShaders(vertex_shader, randomStatic_shader)
+            
 
 
     if keys[K_a]:
