@@ -5,7 +5,7 @@
 - E para hacer Zoom In y Q para hacer Zoom Out  
 - Z para utilizar el modo normal de renderizado y X para utilizar el modo wireframe  
 ## Shaders:  
-- Regular = Tecla 1
+- Regular - Tecla 1
 - Toon Shader - Tecla 2
 - Glow Shader - Tecla 3
 - Pink Jelly Shader - Tecla 4
