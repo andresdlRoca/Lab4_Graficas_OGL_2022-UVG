@@ -8,4 +8,5 @@
 - Regular - Tecla 1
 - Toon Shader - Tecla 2
 - Glow Shader - Tecla 3
-- Pink Jelly Shader - Tecla 4
+- Pink Jelly Shader - Tecla 4  
+- Pulse Color - Tecla 5
