@@ -141,7 +141,38 @@ void main()
 }
 '''
 
-randomStatic_shader = '''
+pulse_vertex_shader ='''
+#version 450 core
+
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec2 texcoords;
+layout (location = 2) in vec3 normals;
+
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+
+uniform float time;
+
+out vec2 UVs;
+out vec3 norms;
+out vec3 pos;
+
+void main()
+{
+    
+    //pos = (modelMatrix * vec4(position + normals * sin(time * 3)/10), 1.0)).xyz;
+    //gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position + normals * sin(time * 3)/10) , 1.0);
+    //gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position + normals * sin(time * 3)/10 , 1.0);
+    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
+    UVs = texcoords;
+    norms = normals;
+    pos = (modelMatrix * vec4(position, 1.0)).xyz;
+
+}
+'''
+
+pulse_fragment_shader ='''
 #version 450 core
 
 out vec4 fragColor;
@@ -153,21 +184,15 @@ in vec3 pos;
 uniform vec3 pointLight;
 
 uniform sampler2D tex;
+uniform float time;
 
 void main()
 {
-    float rand(vec2 co){
-        return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-    }
     float intensity = dot(norms, normalize(pointLight -pos));
-    float r = rand();
-    float g = rand();
-    float b = rand();
-    float a = 1.0;
 
     vec4 textr = texture(tex, UVs);
 
-    fragColor = textr + vec4(r,g,b,a) * intensity;
+    fragColor = textr + vec4(1*sin(time * 3)/5,0,0.51*sin(time * 3)/5,0) * intensity;
 
 }
 '''

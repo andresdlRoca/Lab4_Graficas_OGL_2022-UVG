@@ -63,10 +63,8 @@ while isRunning:
             
             elif event.key == pygame.K_4: #Pink Jelly
                 rend.setShaders(vertex_shader, pinkJelly_shader)
-            
-            elif event.key == pygame.K_5: #Static
-                rend.setShaders(vertex_shader, randomStatic_shader)
-            
+            elif event.key == pygame.K_5: #Pulsating shader
+                rend.setShaders(pulse_vertex_shader, pulse_fragment_shader)
 
 
     if keys[K_a]:
